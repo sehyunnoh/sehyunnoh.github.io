@@ -26,6 +26,12 @@ export const PROJECTS: Project[] = [
 		url: 'https://acorn-liard.vercel.app/',
 	},
 	{
+		name: 'Tap Steps',
+		description: '탭댄스 스텝 연습을 도와주는 사이트.',
+		url: 'https://sehyunnoh.github.io/tap-dance/',
+		tags: ['tapdance'],
+	},
+	{
 		name: 'Tech Blog',
 		description: 'AI 시스템, 웹 엔지니어링, 인프라 설계를 깊이 있게 다루는 기술 블로그.',
 		url: 'https://lleg.dev/',
