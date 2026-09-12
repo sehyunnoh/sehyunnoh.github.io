@@ -32,6 +32,11 @@ export const PROJECTS: Project[] = [
 		tags: ['tapdance'],
 	},
 	{
+		name: 'Homeboard',
+		description: '자주 가는 사이트를 주제별 폴더로 정리하는 개인 북마크 대시보드.',
+		url: 'https://sehyunnoh.github.io/homeboard/',
+	},
+	{
 		name: 'Tech Blog',
 		description: 'AI 시스템, 웹 엔지니어링, 인프라 설계를 깊이 있게 다루는 기술 블로그.',
 		url: 'https://lleg.dev/',
