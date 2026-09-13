@@ -21,7 +21,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
 
 <html lang="ko">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} image={heroImage} />
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -66,6 +66,10 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
 				justify-content: center;
 				gap: 0.5rem;
 				margin-top: 0.75rem;
+			}
+			/* Preflight가 hr의 기본 margin을 지워서 태그/제목에 그대로 붙는다 */
+			.title hr {
+				margin-top: 1.5rem;
 			}
 			.tag {
 				display: inline-block;
