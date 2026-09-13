@@ -12,6 +12,7 @@ export function getStaticPaths() {
 		{ params: { category: 'tapdance' } },
 		{ params: { category: 'jumprope' } },
 		{ params: { category: 'basketball' } },
+		{ params: { category: 'volleyball' } },
 	];
 }
 
@@ -20,6 +21,7 @@ const categoryLabels: Record<string, string> = {
 	tapdance: 'Tap Dance',
 	jumprope: 'Jump Rope',
 	basketball: 'Basketball',
+	volleyball: 'Volleyball',
 };
 
 const { category } = Astro.params;
