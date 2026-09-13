@@ -3,10 +3,11 @@ import rss from '@astrojs/rss';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 export async function GET(context) {
-	const diaryPosts = await getCollection('diary');
-	const hobbyPosts = await getCollection('hobby');
+	const allPosts = (
+		await Promise.all(['diary', 'hobby', 'family'].map((c) => getCollection(c)))
+	).flat();
 
-	const allPosts = [...diaryPosts, ...hobbyPosts].sort(
+	allPosts.sort(
 		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 	);
 
@@ -16,10 +17,9 @@ export async function GET(context) {
 		site: context.site,
 		items: allPosts.map((post) => {
 			const parts = post.id.split('/');
-			const collection = diaryPosts.includes(post) ? 'diary' : 'hobby';
 			return {
 				...post.data,
-				link: `/${collection}/${parts[0]}/${parts.slice(1).join('/')}/`,
+				link: `/${post.collection}/${parts[0]}/${parts.slice(1).join('/')}/`,
 			};
 		}),
 	});

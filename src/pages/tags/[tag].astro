@@ -7,9 +7,9 @@ import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 
 export async function getStaticPaths() {
-	const diaryPosts = await getCollection('diary');
-	const hobbyPosts = await getCollection('hobby');
-	const allPosts = [...diaryPosts, ...hobbyPosts];
+	const allPosts = (
+		await Promise.all((['diary', 'hobby', 'family'] as const).map((c) => getCollection(c)))
+	).flat();
 
 	const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
 
@@ -19,17 +19,15 @@ export async function getStaticPaths() {
 			posts: allPosts
 				.filter((post) => post.data.tags.includes(tag))
 				.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
-			diaryIds: new Set(diaryPosts.map((p) => p.id)),
 		},
 	}));
 }
 
-const { tag, posts, diaryIds } = Astro.props;
+const { tag, posts } = Astro.props;
 
 function getPostUrl(post: (typeof posts)[number]) {
 	const parts = post.id.split('/');
-	const collection = diaryIds.has(post.id) ? 'diary' : 'hobby';
-	return `/${collection}/${parts[0]}/${parts.slice(1).join('/')}/`;
+	return `/${post.collection}/${parts[0]}/${parts.slice(1).join('/')}/`;
 }
 ---
 

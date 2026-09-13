@@ -6,17 +6,17 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const diaryPosts = await getCollection('diary');
-const hobbyPosts = await getCollection('hobby');
+const allPosts = (
+	await Promise.all((['diary', 'hobby', 'family'] as const).map((c) => getCollection(c)))
+).flat();
 
-const recentPosts = [...diaryPosts, ...hobbyPosts]
+const recentPosts = allPosts
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 5);
 
 function getPostUrl(post: (typeof recentPosts)[number]) {
 	const parts = post.id.split('/');
-	const collection = diaryPosts.includes(post as typeof diaryPosts[number]) ? 'diary' : 'hobby';
-	return `/${collection}/${parts[0]}/${parts.slice(1).join('/')}/`;
+	return `/${post.collection}/${parts[0]}/${parts.slice(1).join('/')}/`;
 }
 ---
 
