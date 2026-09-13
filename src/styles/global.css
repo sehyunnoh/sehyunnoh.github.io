@@ -84,6 +84,26 @@ h4 {
 h5 {
 	font-size: 1.25em;
 }
+/* 본문 안의 소제목은 글 제목(h1)보다 확실히 작게 — 전역 스케일은 목록/헤더용으로 유지 */
+/* 위 여백은 소제목 자신이 갖는다. 앞 요소(문단/목록/코드블록)의 margin에 기대면
+   목록 바로 뒤에 오는 소제목이 붙어버린다. */
+.prose h2 {
+	font-size: 1.6em;
+	margin-top: 2.5rem;
+}
+.prose h3 {
+	font-size: 1.35em;
+	margin-top: 2rem;
+}
+.prose h4 {
+	font-size: 1.15em;
+	margin-top: 1.75rem;
+}
+.prose h5,
+.prose h6 {
+	font-size: 1em;
+	margin-top: 1.75rem;
+}
 strong,
 b {
 	font-weight: 700;
@@ -99,6 +119,31 @@ p {
 }
 .prose p {
 	margin-bottom: 2em;
+}
+/* Tailwind Preflight가 list-style과 여백을 지워버리므로 본문 안에서만 되살린다 */
+.prose ul,
+.prose ol {
+	margin-bottom: 2em;
+	padding-left: 1.5em;
+}
+.prose ul {
+	list-style: disc;
+}
+.prose ol {
+	list-style: decimal;
+}
+.prose li {
+	margin-bottom: 0.4em;
+}
+/* 중첩 목록은 바깥 목록의 아래 여백을 물려받지 않도록 */
+.prose li > ul,
+.prose li > ol {
+	margin-top: 0.4em;
+	margin-bottom: 0;
+}
+/* 항목 사이가 빈 줄로 떨어진 목록(loose list)은 li 안이 <p>로 감싸진다 */
+.prose li > p {
+	margin-bottom: 0.4em;
 }
 textarea {
 	width: 100%;
