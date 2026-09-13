@@ -22,4 +22,9 @@ const hobby = defineCollection({
 	schema: postSchema,
 });
 
-export const collections = { diary, hobby };
+const family = defineCollection({
+	loader: glob({ base: './src/content/family', pattern: '**/*.{md,mdx}' }),
+	schema: postSchema,
+});
+
+export const collections = { diary, hobby, family };
