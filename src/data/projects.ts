@@ -10,6 +10,11 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
 	{
+		name: 'Tech Blog',
+		description: 'AI 시스템, 웹 엔지니어링, 인프라 설계를 깊이 있게 다루는 기술 블로그.',
+		url: 'https://lleg.dev/',
+	},
+	{
 		name: 'Pickleball',
 		description: '피클볼 샷과 기술을 상황별·레벨별로 정리한 영상 기반 학습 사이트.',
 		url: 'https://pickleball-livid.vercel.app/',
@@ -40,10 +45,5 @@ export const PROJECTS: Project[] = [
 		name: 'Games',
 		description: '곱셈·나눗셈 연산과 악보 읽기를 연습하는 교육용 미니게임 모음.',
 		url: 'https://sehyunnoh.github.io/games/',
-	},
-	{
-		name: 'Tech Blog',
-		description: 'AI 시스템, 웹 엔지니어링, 인프라 설계를 깊이 있게 다루는 기술 블로그.',
-		url: 'https://lleg.dev/',
 	},
 ];
