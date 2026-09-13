@@ -18,22 +18,13 @@
 		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
 }
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-regular.woff") format("woff");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-bold.woff") format("woff");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
+/* Pretendard는 BaseHead에서 dynamic subset으로 불러온다. 한글·라틴이 한 벌이라
+   이전의 Atkinson(라틴 전용) + OS 기본 한글꼴 조합처럼 섞이지 않는다. */
 body {
-	font-family: "Atkinson", sans-serif;
+	font-family:
+		"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+		"Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+		"Apple Color Emoji", "Segoe UI Emoji", sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -41,9 +32,12 @@ body {
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
+	/* 기본 CJK 줄바꿈은 글자 단위라 "요즘"이 "요/즘"으로 쪼개진다. 한글은 띄어쓰기를
+	   쓰므로 어절 단위로 끊는다. 끊을 곳이 없는 긴 URL 등은 위 overflow-wrap이 받는다. */
+	word-break: keep-all;
 	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
+	font-size: 17px;
+	line-height: 1.75;
 	/* 콘텐츠가 짧아도 footer가 항상 화면 맨 아래에 붙도록 */
 	display: flex;
 	flex-direction: column;
@@ -70,33 +64,33 @@ h6 {
 	line-height: 1.2;
 }
 h1 {
-	font-size: 3.052em;
+	font-size: 2.4em;
 }
 h2 {
-	font-size: 2.441em;
+	font-size: 1.9em;
 }
 h3 {
-	font-size: 1.953em;
+	font-size: 1.6em;
 }
 h4 {
-	font-size: 1.563em;
+	font-size: 1.35em;
 }
 h5 {
-	font-size: 1.25em;
+	font-size: 1.15em;
 }
 /* 본문 안의 소제목은 글 제목(h1)보다 확실히 작게 — 전역 스케일은 목록/헤더용으로 유지 */
 /* 위 여백은 소제목 자신이 갖는다. 앞 요소(문단/목록/코드블록)의 margin에 기대면
    목록 바로 뒤에 오는 소제목이 붙어버린다. */
 .prose h2 {
-	font-size: 1.6em;
+	font-size: 1.5em;
 	margin-top: 2.5rem;
 }
 .prose h3 {
-	font-size: 1.35em;
+	font-size: 1.25em;
 	margin-top: 2rem;
 }
 .prose h4 {
-	font-size: 1.15em;
+	font-size: 1.1em;
 	margin-top: 1.75rem;
 }
 .prose h5,
@@ -184,7 +178,7 @@ hr {
 }
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 16px;
 	}
 	main {
 		padding: 1em;
