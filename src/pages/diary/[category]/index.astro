@@ -11,9 +11,9 @@ export function getStaticPaths() {
 		{ params: { category: 'dev' } },
 		{ params: { category: 'book' } },
 		{ params: { category: 'movie' } },
-		{ params: { category: 'dailythoughts' } },
 		{ params: { category: 'english' } },
 		{ params: { category: 'study' } },
+		{ params: { category: 'dailythoughts' } },
 	];
 }
 
@@ -21,9 +21,9 @@ const categoryLabels: Record<string, string> = {
 	dev: 'Dev',
 	book: 'Book',
 	movie: 'Movie',
-	dailythoughts: 'Daily Thoughts',
 	english: 'English',
 	study: 'Study',
+	dailythoughts: 'Daily Thoughts',
 };
 
 const { category } = Astro.params;
