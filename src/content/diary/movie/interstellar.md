@@ -1,5 +1,5 @@
 ---
-title: '인터스텔라 (Interstellar, 2014) 다시 보기'
+title: '인터스텔라 (Interstellar, 2014) 다시 보기 (더미 데이터)'
 description: '오랜만에 다시 봤는데 역시 명작은 명작. 볼 때마다 새롭게 느껴지는 부분이 있다.'
 pubDate: '2026-03-21'
 tags: ['영화', 'SF', '놀란']
