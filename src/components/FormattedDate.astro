@@ -9,6 +9,10 @@ const { date } = Astro.props;
 <time datetime={date.toISOString()}>
 	{
 		date.toLocaleDateString('en-us', {
+			// frontmatter의 pubDate는 특정 시각이 아니라 달력상의 날짜다.
+			// 날짜만 있는 문자열은 UTC 자정으로 파싱되므로, 표시도 UTC로 고정해야
+			// 빌드 머신의 타임존(로컬 EST vs CI의 UTC)에 따라 하루씩 밀리지 않는다.
+			timeZone: 'UTC',
 			year: 'numeric',
 			month: 'short',
 			day: 'numeric',
