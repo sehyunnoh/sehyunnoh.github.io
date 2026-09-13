@@ -22,6 +22,14 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
 <link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- 홈 화면에 설치(PWA) -->
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content={SITE_TITLE} />
 <link
 	rel="alternate"
 	type="application/rss+xml"
@@ -61,3 +69,15 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<!-- 서비스 워커 등록. 설치는 manifest만으로도 되지만, 워커가 있어야 오프라인이 되고
+     삼성 인터넷 등 일부 브라우저에서 설치 배너가 제대로 뜬다. -->
+<script is:inline>
+	if ('serviceWorker' in navigator) {
+		window.addEventListener('load', function () {
+			navigator.serviceWorker.register('/sw.js').catch(function (err) {
+				console.error('service worker 등록 실패:', err);
+			});
+		});
+	}
+</script>
