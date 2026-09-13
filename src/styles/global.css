@@ -149,6 +149,23 @@ input {
 table {
 	width: 100%;
 }
+/* Preflight는 border-collapse만 남기고 기본 테두리·여백을 지운다. 본문 표에서만 되살린다. */
+.prose table {
+	margin-bottom: 2em;
+	font-size: 0.95em;
+}
+.prose th,
+.prose td {
+	padding: 0.5em 0.75em;
+	border: 1px solid rgb(var(--gray-light));
+	text-align: left;
+	vertical-align: top;
+}
+.prose th {
+	background: rgb(var(--gray-light));
+	color: rgb(var(--black));
+	font-weight: 700;
+}
 img {
 	max-width: 100%;
 	height: auto;
