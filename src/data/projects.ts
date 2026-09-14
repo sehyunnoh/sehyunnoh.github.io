@@ -28,6 +28,15 @@ export const PROJECTS: Project[] = [
 		tags: ['pickleball'],
 	},
 	{
+		name: 'Hoops Handbook',
+		description: {
+			ko: '기본기부터 전략까지 농구 기술을 카테고리별로 모으고, 기술마다 핵심 설명과 영상 하나를 붙인 학습 사이트.',
+			en: 'Basketball skills grouped by category, each with a short explanation and one hand-picked video.',
+		},
+		url: 'https://sehyunnoh.github.io/basketball/#/',
+		tags: ['basketball'],
+	},
+	{
 		name: 'Reminder',
 		description: {
 			ko: '주기적으로 교체하고 갱신해야 하는 것들을 제때 알려주는 리마인더 서비스.',
@@ -67,14 +76,5 @@ export const PROJECTS: Project[] = [
 			en: 'Small educational games for practising multiplication, division and sight-reading.',
 		},
 		url: 'https://sehyunnoh.github.io/games/',
-	},
-	{
-		name: 'Hoops Handbook',
-		description: {
-			ko: '기본기부터 전략까지 농구 기술을 카테고리별로 모으고, 기술마다 핵심 설명과 영상 하나를 붙인 학습 사이트.',
-			en: 'Basketball skills grouped by category, each with a short explanation and one hand-picked video.',
-		},
-		url: 'https://sehyunnoh.github.io/basketball/#/',
-		tags: ['basketball'],
 	},
 ];
