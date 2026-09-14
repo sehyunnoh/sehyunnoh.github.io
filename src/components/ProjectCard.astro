@@ -1,0 +1,80 @@
+---
+import type { Project } from '../data/projects';
+import type { Locale } from '../i18n/config';
+
+interface Props {
+	project: Project;
+	locale: Locale;
+}
+
+const { project, locale } = Astro.props;
+---
+
+<a class="project-card" href={project.url} target="_blank" rel="noopener noreferrer">
+	<h3 class="project-name">{project.name}</h3>
+	<p class="project-desc">{project.description[locale]}</p>
+	{
+		project.tags && project.tags.length > 0 && (
+			<div class="tags">
+				{project.tags.map((tag) => (
+					<span class="tag">#{tag}</span>
+				))}
+			</div>
+		)
+	}
+	<p class="project-host">{new URL(project.url).hostname}</p>
+</a>
+
+<style>
+	.project-card {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		box-sizing: border-box;
+		text-decoration: none;
+		padding: 1.5rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 8px;
+		background: white;
+		transition:
+			box-shadow 0.2s ease,
+			transform 0.2s ease;
+	}
+	.project-card:hover {
+		box-shadow: var(--box-shadow);
+		transform: translateY(-2px);
+	}
+	.project-name {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.25rem;
+		color: rgb(var(--black));
+	}
+	.project-desc {
+		margin: 0 0 1rem 0;
+		font-size: 1rem;
+		color: rgb(var(--gray-dark));
+		flex-grow: 1;
+	}
+	.project-host {
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--accent);
+	}
+	.project-host::after {
+		content: ' ↗';
+	}
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin: 0 0 0.75rem 0;
+	}
+	.tag {
+		display: inline-block;
+		padding: 0.2rem 0.6rem;
+		background: rgb(var(--gray-light));
+		border-radius: 999px;
+		font-size: 0.8rem;
+		color: rgb(var(--gray-dark));
+	}
+</style>

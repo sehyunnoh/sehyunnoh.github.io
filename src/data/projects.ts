@@ -1,12 +1,24 @@
 // 새 프로젝트를 추가하려면 이 배열에 항목을 하나 추가하면 됩니다.
-// 배열 순서대로 카드가 표시됩니다. description은 언어별로 적습니다.
+// 그룹 안에서는 배열 순서대로, 그룹끼리는 PROJECT_GROUPS 순서대로 표시됩니다.
 import type { Locale } from '../i18n/config';
+
+/** 그룹 제목. 배열 순서가 곧 화면에 나오는 순서입니다. */
+export const PROJECT_GROUPS = [
+	{ id: 'learning', label: { ko: '배우고 연습하는 것', en: 'Learning & practice' } },
+	{ id: 'tools', label: { ko: '생활을 돕는 도구', en: 'Everyday tools' } },
+] as const;
+
+export type ProjectGroup = (typeof PROJECT_GROUPS)[number]['id'];
 
 export interface Project {
 	name: string;
 	description: Record<Locale, string>;
 	url: string;
 	tags?: string[];
+	/** 그룹을 안 적으면 맨 아래 '그 외'로 떨어집니다 — 깜빡해도 페이지는 안 깨집니다. */
+	group?: ProjectGroup;
+	/** 그룹 밖 맨 위에 따로 세울 항목 */
+	featured?: boolean;
 }
 
 export const PROJECTS: Project[] = [
@@ -17,6 +29,7 @@ export const PROJECTS: Project[] = [
 			en: 'A technical blog on AI systems, web engineering and infrastructure design.',
 		},
 		url: 'https://lleg.dev/',
+		featured: true,
 	},
 	{
 		name: 'Pickleball',
@@ -26,6 +39,7 @@ export const PROJECTS: Project[] = [
 		},
 		url: 'https://pickleball-livid.vercel.app/',
 		tags: ['pickleball'],
+		group: 'learning',
 	},
 	{
 		name: 'Hoops Handbook',
@@ -35,22 +49,7 @@ export const PROJECTS: Project[] = [
 		},
 		url: 'https://sehyunnoh.github.io/basketball/#/',
 		tags: ['basketball'],
-	},
-	{
-		name: 'Reminder',
-		description: {
-			ko: '주기적으로 교체하고 갱신해야 하는 것들을 제때 알려주는 리마인더 서비스.',
-			en: 'Reminders for the things that need replacing or renewing on a schedule.',
-		},
-		url: 'https://reminder-sandy-two.vercel.app/',
-	},
-	{
-		name: 'Acorn',
-		description: {
-			ko: 'Acorn 웹 서비스.',
-			en: 'The Acorn web service.',
-		},
-		url: 'https://acorn-liard.vercel.app/',
+		group: 'learning',
 	},
 	{
 		name: 'Tap Steps',
@@ -60,14 +59,7 @@ export const PROJECTS: Project[] = [
 		},
 		url: 'https://sehyunnoh.github.io/tap-dance/',
 		tags: ['tapdance'],
-	},
-	{
-		name: 'Homeboard',
-		description: {
-			ko: '자주 가는 사이트를 주제별 폴더로 정리하는 개인 북마크 대시보드.',
-			en: 'A personal bookmark dashboard that files the sites you visit into topic folders.',
-		},
-		url: 'https://sehyunnoh.github.io/homeboard/',
+		group: 'learning',
 	},
 	{
 		name: 'Games',
@@ -76,5 +68,33 @@ export const PROJECTS: Project[] = [
 			en: 'Small educational games for practising multiplication, division and sight-reading.',
 		},
 		url: 'https://sehyunnoh.github.io/games/',
+		group: 'learning',
+	},
+	{
+		name: 'Acorn',
+		description: {
+			ko: '지금은 볼 시간이 없는 페이지를 버튼 하나로 담아두고, 여유 있을 때 꺼내 보는 나중에 읽기 서비스.',
+			en: 'A read-it-later service: stash a page with one button, come back to it when you have time.',
+		},
+		url: 'https://acorn-liard.vercel.app/',
+		group: 'tools',
+	},
+	{
+		name: 'Homeboard',
+		description: {
+			ko: '자주 가는 사이트를 주제별 폴더로 정리하는 개인 북마크 대시보드.',
+			en: 'A personal bookmark dashboard that files the sites you visit into topic folders.',
+		},
+		url: 'https://sehyunnoh.github.io/homeboard/',
+		group: 'tools',
+	},
+	{
+		name: 'Reminder',
+		description: {
+			ko: '주기적으로 교체하고 갱신해야 하는 것들을 제때 알려주는 리마인더 서비스.',
+			en: 'Reminders for the things that need replacing or renewing on a schedule.',
+		},
+		url: 'https://reminder-sandy-two.vercel.app/',
+		group: 'tools',
 	},
 ];

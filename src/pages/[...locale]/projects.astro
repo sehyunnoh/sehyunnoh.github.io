@@ -2,8 +2,9 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
 import { SITE_TITLE } from '../../consts';
-import { PROJECTS } from '../../data/projects';
+import { PROJECT_GROUPS, PROJECTS } from '../../data/projects';
 import { LOCALES, type Locale } from '../../i18n/config';
 import { useTranslations } from '../../i18n/ui';
 import { localeToParam } from '../../i18n/utils';
@@ -17,6 +18,21 @@ export function getStaticPaths() {
 
 const { locale } = Astro.props as { locale: Locale };
 const t = useTranslations(locale);
+
+const featured = PROJECTS.filter((p) => p.featured);
+
+// 그룹 순서는 PROJECT_GROUPS가 정한다. 그룹을 안 적은 항목은 맨 아래로 모은다.
+const sections = PROJECT_GROUPS.map((g) => ({
+	title: g.label[locale],
+	items: PROJECTS.filter((p) => !p.featured && p.group === g.id),
+})).filter((s) => s.items.length > 0);
+
+const ungrouped = PROJECTS.filter(
+	(p) => !p.featured && !PROJECT_GROUPS.some((g) => g.id === p.group),
+);
+if (ungrouped.length > 0) {
+	sections.push({ title: t('projects.other'), items: ungrouped });
+}
 ---
 
 <!doctype html>
@@ -46,55 +62,14 @@ const t = useTranslations(locale);
 				grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 				gap: 1.5rem;
 			}
-			.project-card {
-				display: flex;
-				flex-direction: column;
-				height: 100%;
-				box-sizing: border-box;
-				text-decoration: none;
-				padding: 1.5rem;
-				border: 1px solid rgb(var(--gray-light));
-				border-radius: 8px;
-				background: white;
-				transition:
-					box-shadow 0.2s ease,
-					transform 0.2s ease;
+			.project-section {
+				margin-top: 3rem;
 			}
-			.project-card:hover {
-				box-shadow: var(--box-shadow);
-				transform: translateY(-2px);
-			}
-			.project-name {
-				margin: 0 0 0.5rem 0;
-				font-size: 1.25rem;
-				color: rgb(var(--black));
-			}
-			.project-desc {
+			.section-title {
+				font-size: 1.1rem;
 				margin: 0 0 1rem 0;
-				font-size: 1rem;
-				color: rgb(var(--gray-dark));
-				flex-grow: 1;
-			}
-			.project-host {
-				margin: 0;
-				font-size: 0.875rem;
-				color: var(--accent);
-			}
-			.project-host::after {
-				content: ' ↗';
-			}
-			.tags {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.4rem;
-				margin: 0 0 0.75rem 0;
-			}
-			.tag {
-				display: inline-block;
-				padding: 0.2rem 0.6rem;
-				background: rgb(var(--gray-light));
-				border-radius: 999px;
-				font-size: 0.8rem;
+				padding-bottom: 0.5rem;
+				border-bottom: 1px solid rgb(var(--gray-light));
 				color: rgb(var(--gray-dark));
 			}
 		</style>
@@ -104,31 +79,31 @@ const t = useTranslations(locale);
 		<main>
 			<h1>Projects</h1>
 			<p class="intro">{t('projects.intro')}</p>
-			<ul class="project-grid">
-				{
-					PROJECTS.map((project) => (
-						<li>
-							<a
-								class="project-card"
-								href={project.url}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								<h2 class="project-name">{project.name}</h2>
-								<p class="project-desc">{project.description[locale]}</p>
-								{project.tags && project.tags.length > 0 && (
-									<div class="tags">
-										{project.tags.map((tag) => (
-											<span class="tag">#{tag}</span>
-										))}
-									</div>
-								)}
-								<p class="project-host">{new URL(project.url).hostname}</p>
-							</a>
-						</li>
-					))
-				}
-			</ul>
+			{
+				featured.length > 0 && (
+					<ul class="project-grid featured">
+						{featured.map((project) => (
+							<li>
+								<ProjectCard project={project} locale={locale} />
+							</li>
+						))}
+					</ul>
+				)
+			}
+			{
+				sections.map((section) => (
+					<section class="project-section">
+						<h2 class="section-title">{section.title}</h2>
+						<ul class="project-grid">
+							{section.items.map((project) => (
+								<li>
+									<ProjectCard project={project} locale={locale} />
+								</li>
+							))}
+						</ul>
+					</section>
+				))
+			}
 		</main>
 		<Footer />
 	</body>
