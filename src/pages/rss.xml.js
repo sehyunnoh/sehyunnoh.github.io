@@ -1,26 +1,16 @@
-import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_TITLE } from '../consts';
+import { getPostsFor, postUrl } from '../i18n/utils';
 
 export async function GET(context) {
-	const allPosts = (
-		await Promise.all(['diary', 'hobby', 'family'].map((c) => getCollection(c)))
-	).flat();
-
-	allPosts.sort(
-		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-	);
-
+	const posts = await getPostsFor('ko');
 	return rss({
 		title: SITE_TITLE,
-		description: SITE_DESCRIPTION,
+		description: '개발일기와 취미 활동을 기록하는 공간입니다.',
 		site: context.site,
-		items: allPosts.map((post) => {
-			const parts = post.id.split('/');
-			return {
-				...post.data,
-				link: `/${post.collection}/${parts[0]}/${parts.slice(1).join('/')}/`,
-			};
-		}),
+		items: posts.map((post) => ({
+			...post.entry.data,
+			link: postUrl(post, 'ko'),
+		})),
 	});
 }

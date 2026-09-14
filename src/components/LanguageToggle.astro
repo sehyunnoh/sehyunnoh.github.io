@@ -1,0 +1,71 @@
+---
+import { LOCALES, LOCALE_LABELS, type Locale } from '../i18n/config';
+import { localePrefix } from '../i18n/utils';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+	locale: Locale;
+	/** 다른 언어로 갈 경로를 지정한다. 없으면 현재 경로에 접두사만 바꿔 붙인다. */
+	hrefs?: Partial<Record<Locale, string>>;
+}
+
+const { locale, hrefs = {} } = Astro.props;
+const t = useTranslations(locale);
+
+/** 현재 경로에서 언어 접두사를 떼어낸 나머지 */
+const bare = Astro.url.pathname.replace(/^\/(en)(?=\/|$)/, '') || '/';
+
+function hrefFor(target: Locale): string {
+	if (hrefs[target]) return hrefs[target]!;
+	const path = `${localePrefix(target)}${bare}`;
+	return path.endsWith('/') ? path : `${path}/`;
+}
+---
+
+<div class="lang" role="group" aria-label={t('nav.language')}>
+	{
+		LOCALES.map((l) =>
+			l === locale ? (
+				<span class="lang-current" aria-current="true">
+					{LOCALE_LABELS[l]}
+				</span>
+			) : (
+				<a href={hrefFor(l)} hreflang={l}>
+					{LOCALE_LABELS[l]}
+				</a>
+			),
+		)
+	}
+</div>
+
+<style>
+	.lang {
+		display: flex;
+		align-items: center;
+		gap: 1px;
+		flex-shrink: 0;
+		font-size: 0.8rem;
+		line-height: 1;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		overflow: hidden;
+	}
+	.lang > * {
+		padding: 0.4em 0.6em;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+	}
+	.lang a {
+		color: rgb(var(--gray));
+		text-decoration: none;
+		border-bottom: none;
+	}
+	.lang a:hover {
+		background: rgb(var(--gray-light));
+		color: var(--accent);
+	}
+	.lang-current {
+		background: rgb(var(--black));
+		color: white;
+	}
+</style>

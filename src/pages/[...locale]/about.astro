@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/BlogPost.astro';
+import { LOCALES, type Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+import { localeToParam } from '../../i18n/utils';
+
+export function getStaticPaths() {
+	return LOCALES.map((locale) => ({
+		params: { locale: localeToParam(locale) },
+		props: { locale },
+	}));
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+
+// About은 두 언어 다 직접 쓴 글이므로 hreflang을 내보낸다.
+const alternates = { ko: '/about/', en: '/en/about/' };
+---
+
+<Layout
+	title="About Me"
+	description={t('about.desc')}
+	pubDate={new Date('2026-03-21')}
+	locale={locale}
+	alternates={alternates}
+>
+	{
+		locale === 'ko' ? (
+			<Fragment>
+				<p>안녕하세요! 이 블로그는 제 개발 일기와 취미 활동을 기록하는 공간입니다.</p>
+
+				<h2>개발</h2>
+				<p>
+					소프트웨어 개발에 관심이 많습니다. 새로운 기술을 배우고 익히는 과정을 기록하고,
+					개발하면서 겪은 경험들을 공유합니다.
+				</p>
+
+				<h2>취미</h2>
+				<p>요즘 즐기고 있는 취미들입니다.</p>
+				<ul>
+					<li>
+						<strong>피클볼</strong> — 작은 코트에서 치는 라켓 스포츠. 친구들과 함께 즐기고 있습니다.
+					</li>
+					<li>
+						<strong>탭댄스</strong> — 발로 리듬을 만드는 춤. 연습할수록 재미있습니다.
+					</li>
+					<li>
+						<strong>줄넘기</strong> — 집에서도 할 수 있는 효율적인 유산소 운동.
+					</li>
+				</ul>
+
+				<h2>이 블로그에서는</h2>
+				<ul>
+					<li>개발하면서 배운 것들 (Dev Diary)</li>
+					<li>읽은 책 기록 (Book)</li>
+					<li>본 영화 기록 (Movie)</li>
+					<li>취미 활동 기록 (Hobby)</li>
+				</ul>
+			</Fragment>
+		) : (
+			<Fragment>
+				<p>Hi! This blog is where I keep notes on what I build and what I do for fun.</p>
+
+				<h2>Development</h2>
+				<p>
+					I like building software. I write down what I learn picking up new tools, and share the
+					things I run into along the way.
+				</p>
+
+				<h2>Hobbies</h2>
+				<p>What I am into at the moment.</p>
+				<ul>
+					<li>
+						<strong>Pickleball</strong> — a racket sport on a small court. I play it with friends.
+					</li>
+					<li>
+						<strong>Tap dance</strong> — making rhythm with your feet. The more I practise, the more
+						fun it gets.
+					</li>
+					<li>
+						<strong>Jump rope</strong> — efficient cardio I can do without leaving the house.
+					</li>
+				</ul>
+
+				<h2>What you will find here</h2>
+				<ul>
+					<li>Things I learned while building (Dev Diary)</li>
+					<li>Books I read (Book)</li>
+					<li>Films I watched (Movie)</li>
+					<li>Notes on hobbies (Hobby)</li>
+				</ul>
+			</Fragment>
+		)
+	}
+</Layout>

@@ -1,0 +1,49 @@
+---
+import { render } from 'astro:content';
+import BlogPost from '../../../../layouts/BlogPost.astro';
+import { LOCALES, type Locale } from '../../../../i18n/config';
+import { getPostsFor, localeToParam, postUrl } from '../../../../i18n/utils';
+
+export async function getStaticPaths() {
+	// 어떤 글이 어떤 언어로 실제 번역돼 있는지 먼저 모아둔다.
+	const translatedIn = new Map<string, Locale[]>();
+	const byLocale = new Map<Locale, Awaited<ReturnType<typeof getPostsFor>>>();
+	for (const locale of LOCALES) {
+		const posts = (await getPostsFor(locale)).filter((p) => p.collection === 'hobby');
+		byLocale.set(locale, posts);
+		for (const p of posts) {
+			if (!p.translated) continue;
+			translatedIn.set(p.key, [...(translatedIn.get(p.key) ?? []), locale]);
+		}
+	}
+
+	const paths = [];
+	for (const locale of LOCALES) {
+		for (const post of byLocale.get(locale)!) {
+			// 번역이 둘 이상일 때만 hreflang을 내보낸다
+			const langs = translatedIn.get(post.key) ?? [];
+			const alternates =
+				langs.length > 1
+					? Object.fromEntries(langs.map((l) => [l, postUrl(post, l)]))
+					: undefined;
+			paths.push({
+				params: { locale: localeToParam(locale), category: post.category, slug: post.slug },
+				props: { post, locale, alternates },
+			});
+		}
+	}
+	return paths;
+}
+
+const { post, locale, alternates } = Astro.props;
+const { Content } = await render(post.entry);
+---
+
+<BlogPost
+	{...post.entry.data}
+	locale={locale}
+	alternates={alternates}
+	translated={post.translated}
+>
+	<Content />
+</BlogPost>

@@ -12,16 +12,37 @@ interface Props {
 	updatedDate?: Date;
 	heroImage?: ImageMetadata;
 	tags?: string[];
+	locale: Locale;
+	alternates?: Partial<Record<Locale, string>>;
+	/** false면 이 언어 번역이 없어 기본 언어 본문을 보여주고 있다는 뜻 */
+	translated?: boolean;
 }
 
 import type { ImageMetadata } from 'astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+import { localePrefix } from '../i18n/utils';
+import { tagLabel } from '../i18n/tags';
 
-const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	tags = [],
+	locale,
+	alternates,
+	translated = true,
+} = Astro.props;
+
+const t = useTranslations(locale);
+const p = localePrefix(locale);
 ---
 
-<html lang="ko">
+<html lang={locale}>
 	<head>
-		<BaseHead title={title} description={description} image={heroImage} />
+		<BaseHead title={title} description={description} image={heroImage} locale={locale} alternates={alternates} />
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -85,24 +106,34 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
 				background: var(--accent);
 				color: white;
 			}
+			.fallback-notice {
+				margin: 1.5em 0 0 0;
+				padding: 0.75em 1em;
+				background: rgb(var(--gray-light));
+				border-radius: 8px;
+				font-size: 0.9em;
+				color: rgb(var(--gray-dark));
+				text-align: center;
+			}
 		</style>
 	</head>
 
 	<body>
-		<Header />
+		<Header locale={locale} altHrefs={alternates} />
 		<main>
 			<article>
 				<div class="hero-image">
 					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
 				</div>
 				<div class="prose">
+					{!translated && <p class="fallback-notice">{t('post.koOnly')}</p>}
 					<div class="title">
 						<div class="date">
 							<FormattedDate date={pubDate} />
 							{
 								updatedDate && (
 									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
+										{t('post.lastUpdated')} <FormattedDate date={updatedDate} />
 									</div>
 								)
 							}
@@ -112,8 +143,8 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
 							tags.length > 0 && (
 								<div class="tags">
 									{tags.map((tag) => (
-										<a href={`/tags/${tag}/`} class="tag">
-											#{tag}
+										<a href={`${p}/tags/${tag}/`} class="tag">
+											#{tagLabel(tag, locale)}
 										</a>
 									))}
 								</div>

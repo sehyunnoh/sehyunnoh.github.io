@@ -4,17 +4,23 @@
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
+import { DEFAULT_LOCALE, type Locale } from '../i18n/config';
 import { SITE_TITLE } from '../consts';
 
 interface Props {
 	title: string;
 	description: string;
 	image?: ImageMetadata;
+	locale: Locale;
+	/** 실제 번역이 존재하는 언어별 경로. 번역이 있을 때만 hreflang을 내보낸다. */
+	alternates?: Partial<Record<Locale, string>>;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = FallbackImage } = Astro.props;
+const { title, description, image = FallbackImage, locale, alternates } = Astro.props;
+
+const hreflangs = Object.entries(alternates ?? {}) as [Locale, string][];
 ---
 
 <!-- Global Metadata -->
@@ -34,7 +40,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 	rel="alternate"
 	type="application/rss+xml"
 	title={SITE_TITLE}
-	href={new URL('rss.xml', Astro.site)}
+	href={new URL(locale === DEFAULT_LOCALE ? 'rss.xml' : `${locale}/rss.xml`, Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
 
@@ -51,6 +57,22 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
+<!--
+	hreflang은 짝이 실제로 존재할 때만 내보낸다. 번역이 없는데 선언하면
+	같은 한국어 본문이 두 주소에 있다고 알리는 셈이라 중복 콘텐츠가 된다.
+-->
+{
+	hreflangs.length > 1 &&
+		hreflangs.map(([l, href]) => (
+			<link rel="alternate" hreflang={l} href={new URL(href, Astro.site)} />
+		))
+}
+{
+	hreflangs.length > 1 && alternates?.[DEFAULT_LOCALE] && (
+		<link rel="alternate" hreflang="x-default" href={new URL(alternates[DEFAULT_LOCALE]!, Astro.site)} />
+	)
+}
+
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
@@ -58,6 +80,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
+<meta property="og:locale" content={locale === 'ko' ? 'ko_KR' : 'en_US'} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />

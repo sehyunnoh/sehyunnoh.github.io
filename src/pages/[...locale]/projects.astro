@@ -1,15 +1,32 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
-import { PROJECTS } from '../data/projects';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { PROJECTS } from '../../data/projects';
+import { LOCALES, type Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+import { localeToParam } from '../../i18n/utils';
+
+export function getStaticPaths() {
+	return LOCALES.map((locale) => ({
+		params: { locale: localeToParam(locale) },
+		props: { locale },
+	}));
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
 ---
 
 <!doctype html>
-<html lang="ko">
+<html lang={locale}>
 	<head>
-		<BaseHead title={`Projects | ${SITE_TITLE}`} description="직접 만든 프로젝트 모음" />
+		<BaseHead
+			title={`Projects | ${SITE_TITLE}`}
+			description={t('projects.desc')}
+			locale={locale}
+		/>
 		<style>
 			main {
 				width: 960px;
@@ -83,10 +100,10 @@ import { PROJECTS } from '../data/projects';
 		</style>
 	</head>
 	<body>
-		<Header />
+		<Header locale={locale} />
 		<main>
 			<h1>Projects</h1>
-			<p class="intro">직접 만들고 운영 중인 프로젝트들입니다.</p>
+			<p class="intro">{t('projects.intro')}</p>
 			<ul class="project-grid">
 				{
 					PROJECTS.map((project) => (
@@ -98,7 +115,7 @@ import { PROJECTS } from '../data/projects';
 								rel="noopener noreferrer"
 							>
 								<h2 class="project-name">{project.name}</h2>
-								<p class="project-desc">{project.description}</p>
+								<p class="project-desc">{project.description[locale]}</p>
 								{project.tags && project.tags.length > 0 && (
 									<div class="tags">
 										{project.tags.map((tag) => (

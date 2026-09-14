@@ -1,0 +1,91 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_TITLE } from '../../../consts';
+import { LOCALES, type Locale } from '../../../i18n/config';
+import { tagLabel } from '../../../i18n/tags';
+import { useTranslations } from '../../../i18n/ui';
+import { getPostsFor, localePrefix, localeToParam } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+	return LOCALES.map((locale) => ({
+		params: { locale: localeToParam(locale) },
+		props: { locale },
+	}));
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+const p = localePrefix(locale);
+
+const tagCount: Record<string, number> = {};
+for (const post of await getPostsFor(locale)) {
+	for (const tag of post.entry.data.tags) {
+		tagCount[tag] = (tagCount[tag] ?? 0) + 1;
+	}
+}
+const tags = Object.entries(tagCount).sort((a, b) => b[1] - a[1]);
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<BaseHead
+			title={`${t('tags.title')} | ${SITE_TITLE}`}
+			description={t('tags.allDesc')}
+			locale={locale}
+		/>
+		<style>
+			main {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 3em 1em;
+			}
+			.tag-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-top: 1.5rem;
+			}
+			.tag-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				padding: 0.4rem 0.9rem;
+				background: rgb(var(--gray-light));
+				border-radius: 999px;
+				text-decoration: none;
+				font-size: 0.95rem;
+				color: rgb(var(--gray-dark));
+				transition: background 0.15s ease;
+			}
+			.tag-link:hover {
+				background: var(--accent);
+				color: white;
+			}
+			.tag-count {
+				font-size: 0.8rem;
+				opacity: 0.7;
+			}
+		</style>
+	</head>
+	<body>
+		<Header locale={locale} />
+		<main>
+			<h1>{t('tags.title')}</h1>
+			<div class="tag-list">
+				{
+					tags.map(([tag, count]) => (
+						<a href={`${p}/tags/${tag}/`} class="tag-link">
+							#{tagLabel(tag, locale)}
+							<span class="tag-count">{count}</span>
+						</a>
+					))
+				}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

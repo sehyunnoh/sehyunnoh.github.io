@@ -10,7 +10,7 @@ import { SITE_TITLE } from '../consts';
 <!doctype html>
 <html lang="ko">
 	<head>
-		<BaseHead title={`오프라인 | ${SITE_TITLE}`} description="네트워크에 연결되어 있지 않습니다." />
+		<BaseHead title={`Offline | ${SITE_TITLE}`} description="You are not connected to the network." locale="ko" />
 		<style>
 			main {
 				width: 720px;
@@ -25,11 +25,11 @@ import { SITE_TITLE } from '../consts';
 		</style>
 	</head>
 	<body>
-		<Header />
+		<Header locale="ko" />
 		<main>
-			<h1>오프라인</h1>
+			<h1>오프라인 · Offline</h1>
 			<p>네트워크에 연결되어 있지 않아 이 페이지를 불러올 수 없습니다.</p>
-			<p>연결이 복구되면 다시 시도해 주세요.</p>
+			<p lang="en">This page could not be loaded because you are offline.</p>
 		</main>
 		<Footer />
 	</body>
