@@ -2,7 +2,7 @@
 title: '농구, 다시 시작하다 (더미 데이터)'
 description: '오랜만에 코트를 밟았다. 몸은 기억하고 있을까?'
 pubDate: '2026-03-21'
-tags: ['농구', '운동', '취미']
+tags: ['basketball', 'exercise', 'hobby']
 ---
 
 ## 오랜만의 코트

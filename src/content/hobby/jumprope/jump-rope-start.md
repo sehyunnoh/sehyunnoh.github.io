@@ -2,7 +2,7 @@
 title: '줄넘기, 다시 시작하다 (더미 데이터)'
 description: '어릴 때 이후로 처음 잡아본 줄넘기. 어른이 되어서 하니까 이렇게 힘들 줄 몰랐다.'
 pubDate: '2026-03-21'
-tags: ['줄넘기', '운동', '유산소']
+tags: ['jump-rope', 'exercise', 'cardio']
 ---
 
 ## 계기

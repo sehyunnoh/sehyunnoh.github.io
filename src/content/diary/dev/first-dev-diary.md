@@ -2,7 +2,7 @@
 title: '개발일기 첫 번째 - Astro로 블로그 만들기 (더미 데이터)'
 description: 'Astro, Tailwind CSS, Bun을 사용해 개인 블로그를 직접 만들어본 후기'
 pubDate: '2026-03-21'
-tags: ['astro', 'bun', 'tailwind', '블로그']
+tags: ['astro', 'bun', 'tailwind', 'blog']
 ---
 
 ## 드디어 블로그를 만들었다

@@ -3,7 +3,7 @@ title: '일주일에 하나씩 — AI와 함께 개발하는 요즘'
 description: 'orca로 프로젝트를 만들며 느낀 것들, 그리고 홈서버로 확장하려는 계획'
 pubDate: '2026-09-13'
 heroImage: '../../../assets/dev-ai-driven-development.jpg'
-tags: ['AI', 'orca', '개발', '홈서버']
+tags: ['ai', 'orca', 'dev', 'home-server']
 ---
 
 요새 [orca](https://www.onorca.dev/)를 써서 이것저것 프로젝트를 개발하고 있는데, 일주일에 하나씩은 추가하고 있는 거 같다.

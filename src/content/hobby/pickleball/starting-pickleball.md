@@ -2,7 +2,7 @@
 title: '피클볼을 시작했다 (더미 데이터)'
 description: '테니스도 배드민턴도 아닌 피클볼. 처음엔 이름이 이상하다고 생각했는데 막상 쳐보니 너무 재밌다.'
 pubDate: '2026-03-21'
-tags: ['피클볼', '운동', '라켓스포츠']
+tags: ['pickleball', 'exercise', 'racket-sports']
 ---
 
 ## 피클볼이 뭐야?
