@@ -52,6 +52,15 @@ export const PROJECTS: Project[] = [
 		group: 'learning',
 	},
 	{
+		name: 'Calisthenics',
+		description: {
+			ko: '맨몸운동 기술을 단계별로 정리한 영상 기반 학습 사이트.',
+			en: 'Video-based drills for calisthenics skills, sorted by progression.',
+		},
+		url: 'https://sehyunnoh.github.io/calisthenics/',
+		group: 'learning',
+	},
+	{
 		name: 'Tap Steps',
 		description: {
 			ko: '탭댄스 스텝 연습을 도와주는 사이트.',
