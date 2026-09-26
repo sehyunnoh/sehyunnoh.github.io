@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
 			ko: '피클볼 샷과 기술을 상황별·레벨별로 정리한 영상 기반 학습 사이트.',
 			en: 'Video-based drills for pickleball shots, sorted by situation and skill level.',
 		},
-		url: 'https://pickleball-livid.vercel.app/',
+		url: 'https://sehyunnoh.github.io/pickleball/',
 		tags: ['pickleball'],
 		group: 'learning',
 	},
