@@ -1,5 +1,5 @@
 ---
-title: '오랜만의 플룻 연습'
+title: '딸내미 플롯 연습'
 description: '컬러가드를 하면서 플룻 연습 시간이 확 줄었다는 걸 새삼 느낀 날.'
 pubDate: '2026-09-26'
 tags: ['family', 'music']
