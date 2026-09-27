@@ -42,7 +42,7 @@ export const PROJECTS: Project[] = [
 		group: 'learning',
 	},
 	{
-		name: 'Hoops Handbook',
+		name: 'Basketball Handbook',
 		description: {
 			ko: '기본기부터 전략까지 농구 기술을 카테고리별로 모으고, 기술마다 핵심 설명과 영상 하나를 붙인 학습 사이트.',
 			en: 'Basketball skills grouped by category, each with a short explanation and one hand-picked video.',
@@ -61,7 +61,7 @@ export const PROJECTS: Project[] = [
 		group: 'learning',
 	},
 	{
-		name: 'Volleyball',
+		name: 'Volleyball Handbook',
 		description: {
 			ko: '배구 기술을 상황별·레벨별로 정리한 영상 기반 학습 사이트.',
 			en: 'Video-based drills for volleyball skills, sorted by situation and skill level.',
