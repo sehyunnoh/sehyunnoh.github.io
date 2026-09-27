@@ -1,0 +1,162 @@
+---
+interface Props {
+	images: { src: string; alt: string }[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="gallery" data-gallery>
+	<div class="gallery-track" data-gallery-track>
+		{
+			images.map((img) => (
+				<div class="gallery-slide" data-gallery-slide>
+					<img src={img.src} alt={img.alt} loading="lazy" />
+				</div>
+			))
+		}
+	</div>
+	{
+		images.length > 1 && (
+			<>
+				<button class="gallery-btn prev" type="button" data-gallery-prev aria-label="이전 사진">
+					‹
+				</button>
+				<button class="gallery-btn next" type="button" data-gallery-next aria-label="다음 사진">
+					›
+				</button>
+				<div class="gallery-dots" data-gallery-dots>
+					{images.map((_, i) => (
+						<button
+							class="gallery-dot"
+							type="button"
+							data-gallery-dot={i}
+							aria-label={`${i + 1}번째 사진으로 이동`}
+						/>
+					))}
+				</div>
+			</>
+		)
+	}
+</div>
+
+<style>
+	.gallery {
+		position: relative;
+		margin: 1.5rem 0;
+	}
+	.gallery-track {
+		display: flex;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-behavior: smooth;
+		border-radius: 8px;
+		background: rgb(var(--gray-light));
+		scrollbar-width: none;
+	}
+	.gallery-track::-webkit-scrollbar {
+		display: none;
+	}
+	.gallery-slide {
+		flex: 0 0 100%;
+		scroll-snap-align: start;
+		display: flex;
+		justify-content: center;
+	}
+	.gallery-slide img {
+		width: 100%;
+		max-height: 70vh;
+		object-fit: contain;
+		display: block;
+	}
+	.gallery-btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 2.25rem;
+		height: 2.25rem;
+		border: none;
+		border-radius: 50%;
+		background: rgba(var(--black), 0.55);
+		color: white;
+		font-size: 1.25rem;
+		line-height: 1;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.gallery-btn:hover {
+		background: rgba(var(--black), 0.75);
+	}
+	.gallery-btn.prev {
+		left: 0.5rem;
+	}
+	.gallery-btn.next {
+		right: 0.5rem;
+	}
+	.gallery-dots {
+		display: flex;
+		justify-content: center;
+		gap: 0.4rem;
+		margin-top: 0.6rem;
+	}
+	.gallery-dot {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 50%;
+		border: none;
+		padding: 0;
+		background: rgb(var(--gray-light));
+		cursor: pointer;
+	}
+	.gallery-dot[data-active='true'] {
+		background: var(--accent);
+	}
+</style>
+
+<script>
+	function setupGallery(gallery: Element) {
+		const track = gallery.querySelector<HTMLElement>('[data-gallery-track]');
+		const slides = Array.from(gallery.querySelectorAll<HTMLElement>('[data-gallery-slide]'));
+		const dots = Array.from(gallery.querySelectorAll<HTMLElement>('[data-gallery-dot]'));
+		const prevBtn = gallery.querySelector<HTMLElement>('[data-gallery-prev]');
+		const nextBtn = gallery.querySelector<HTMLElement>('[data-gallery-next]');
+		if (!track || slides.length === 0) return;
+
+		let activeIndex = 0;
+
+		function setActive(index: number) {
+			activeIndex = index;
+			dots.forEach((dot, i) => {
+				dot.dataset.active = String(i === index);
+			});
+		}
+
+		function scrollToIndex(index: number) {
+			const clamped = Math.max(0, Math.min(index, slides.length - 1));
+			slides[clamped]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+		}
+
+		prevBtn?.addEventListener('click', () => scrollToIndex(activeIndex - 1));
+		nextBtn?.addEventListener('click', () => scrollToIndex(activeIndex + 1));
+		dots.forEach((dot, i) => dot.addEventListener('click', () => scrollToIndex(i)));
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						const index = slides.indexOf(entry.target as HTMLElement);
+						if (index !== -1) setActive(index);
+					}
+				}
+			},
+			{ root: track, threshold: 0.6 },
+		);
+		slides.forEach((slide) => observer.observe(slide));
+
+		setActive(0);
+	}
+
+	document.querySelectorAll('[data-gallery]').forEach(setupGallery);
+</script>

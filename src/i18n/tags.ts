@@ -17,6 +17,7 @@ export const TAGS: Record<string, Record<Locale, string>> = {
 	dance: { ko: '춤', en: 'Dance' },
 	dev: { ko: '개발', en: 'Development' },
 	english: { ko: '영어', en: 'English' },
+	event: { ko: '이벤트', en: 'Event' },
 	exercise: { ko: '운동', en: 'Exercise' },
 	family: { ko: '가족', en: 'Family' },
 	hiking: { ko: '등산', en: 'Hiking' },

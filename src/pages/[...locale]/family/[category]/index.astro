@@ -14,6 +14,7 @@ const categoryLabels: Record<string, string> = {
 	exercises: 'Exercises',
 	music: 'Music',
 	study: 'Study',
+	event: 'Event',
 };
 
 export function getStaticPaths() {
@@ -23,6 +24,7 @@ export function getStaticPaths() {
 			{ category: 'exercises' },
 			{ category: 'music' },
 			{ category: 'study' },
+			{ category: 'event' },
 		].map((c) => ({
 			params: { locale: localeToParam(locale), category: c.category },
 			props: { locale },
