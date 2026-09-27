@@ -61,6 +61,16 @@ export const PROJECTS: Project[] = [
 		group: 'learning',
 	},
 	{
+		name: 'Volleyball',
+		description: {
+			ko: '배구 기술을 상황별·레벨별로 정리한 영상 기반 학습 사이트.',
+			en: 'Video-based drills for volleyball skills, sorted by situation and skill level.',
+		},
+		url: 'https://sehyunnoh.github.io/volleyball/',
+		tags: ['volleyball'],
+		group: 'learning',
+	},
+	{
 		name: 'Tap Steps',
 		description: {
 			ko: '탭댄스 스텝 연습을 도와주는 사이트.',
