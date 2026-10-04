@@ -81,6 +81,16 @@ export const PROJECTS: Project[] = [
 		group: 'learning',
 	},
 	{
+		name: 'Jump Rope',
+		description: {
+			ko: '줄넘기 기술을 단계별로 정리한 영상 기반 학습 사이트.',
+			en: 'Video-based drills for jump rope skills, sorted by progression.',
+		},
+		url: 'https://sehyunnoh.github.io/jump-rope/',
+		tags: ['jumprope'],
+		group: 'learning',
+	},
+	{
 		name: 'Games',
 		description: {
 			ko: '곱셈·나눗셈 연산과 악보 읽기를 연습하는 교육용 미니게임 모음.',
