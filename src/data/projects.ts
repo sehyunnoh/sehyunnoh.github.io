@@ -100,6 +100,15 @@ export const PROJECTS: Project[] = [
 		group: 'learning',
 	},
 	{
+		name: 'Word Cards',
+		description: {
+			ko: '단어를 카드로 넘기며 외우는 영어 단어 학습 사이트.',
+			en: 'A flashcard site for learning English vocabulary.',
+		},
+		url: 'https://sehyunnoh.github.io/word-cards/',
+		group: 'learning',
+	},
+	{
 		name: 'Acorn',
 		description: {
 			ko: '지금은 볼 시간이 없는 페이지를 버튼 하나로 담아두고, 여유 있을 때 꺼내 보는 나중에 읽기 서비스.',
