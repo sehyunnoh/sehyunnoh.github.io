@@ -109,6 +109,15 @@ export const PROJECTS: Project[] = [
 		group: 'learning',
 	},
 	{
+		name: 'Shuffle Lab',
+		description: {
+			ko: '하루 30분, 5단계 튜토리얼로 셔플 댄스 기초부터 짧은 루틴까지 익히는 연습 가이드.',
+			en: 'A beginner practice guide for shuffle dance: five levels, 30 minutes a day, from basics to a short routine.',
+		},
+		url: 'https://sehyunnoh.github.io/shuffle-dance/',
+		group: 'learning',
+	},
+	{
 		name: 'Acorn',
 		description: {
 			ko: '지금은 볼 시간이 없는 페이지를 버튼 하나로 담아두고, 여유 있을 때 꺼내 보는 나중에 읽기 서비스.',
