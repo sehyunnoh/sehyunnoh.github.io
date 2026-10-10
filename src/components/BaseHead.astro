@@ -93,6 +93,13 @@ const hreflangs = Object.entries(alternates ?? {}) as [Locale, string][];
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
+<!-- GoatCounter 방문 통계 -->
+<script
+	is:inline
+	data-goatcounter="https://sehyunnoh.goatcounter.com/count"
+	async
+	src="//gc.zgo.at/count.js"></script>
+
 <!-- 서비스 워커 등록. 설치는 manifest만으로도 되지만, 워커가 있어야 오프라인이 되고
      삼성 인터넷 등 일부 브라우저에서 설치 배너가 제대로 뜬다. -->
 <script is:inline>
