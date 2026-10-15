@@ -4,7 +4,9 @@ import type { Locale } from '../i18n/config';
 
 /** 그룹 제목. 배열 순서가 곧 화면에 나오는 순서입니다. */
 export const PROJECT_GROUPS = [
-	{ id: 'learning', label: { ko: '배우고 연습하는 것', en: 'Learning & practice' } },
+	{ id: 'sports', label: { ko: '운동·스포츠', en: 'Sports & fitness' } },
+	{ id: 'dance', label: { ko: '댄스', en: 'Dance' } },
+	{ id: 'study', label: { ko: '공부·게임', en: 'Study & games' } },
 	{ id: 'tools', label: { ko: '생활을 돕는 도구', en: 'Everyday tools' } },
 ] as const;
 
@@ -39,7 +41,7 @@ export const PROJECTS: Project[] = [
 		},
 		url: 'https://sehyunnoh.github.io/pickleball/',
 		tags: ['pickleball'],
-		group: 'learning',
+		group: 'sports',
 	},
 	{
 		name: 'Basketball Handbook',
@@ -49,7 +51,7 @@ export const PROJECTS: Project[] = [
 		},
 		url: 'https://sehyunnoh.github.io/basketball/#/',
 		tags: ['basketball'],
-		group: 'learning',
+		group: 'sports',
 	},
 	{
 		name: 'Calisthenics',
@@ -58,7 +60,7 @@ export const PROJECTS: Project[] = [
 			en: 'Video-based drills for calisthenics skills, sorted by progression.',
 		},
 		url: 'https://sehyunnoh.github.io/calisthenics/',
-		group: 'learning',
+		group: 'sports',
 	},
 	{
 		name: 'Volleyball Handbook',
@@ -68,7 +70,7 @@ export const PROJECTS: Project[] = [
 		},
 		url: 'https://sehyunnoh.github.io/volleyball/',
 		tags: ['volleyball'],
-		group: 'learning',
+		group: 'sports',
 	},
 	{
 		name: 'Tap Steps',
@@ -78,7 +80,7 @@ export const PROJECTS: Project[] = [
 		},
 		url: 'https://sehyunnoh.github.io/tap-dance/',
 		tags: ['tapdance'],
-		group: 'learning',
+		group: 'dance',
 	},
 	{
 		name: 'Jump Rope',
@@ -88,7 +90,7 @@ export const PROJECTS: Project[] = [
 		},
 		url: 'https://sehyunnoh.github.io/jump-rope/',
 		tags: ['jumprope'],
-		group: 'learning',
+		group: 'sports',
 	},
 	{
 		name: 'Games',
@@ -97,7 +99,7 @@ export const PROJECTS: Project[] = [
 			en: 'Small educational games for practising multiplication, division and sight-reading.',
 		},
 		url: 'https://sehyunnoh.github.io/games/',
-		group: 'learning',
+		group: 'study',
 	},
 	{
 		name: 'Word Cards',
@@ -106,7 +108,7 @@ export const PROJECTS: Project[] = [
 			en: 'A flashcard site for learning English vocabulary.',
 		},
 		url: 'https://sehyunnoh.github.io/word-cards/',
-		group: 'learning',
+		group: 'study',
 	},
 	{
 		name: 'Shuffle Lab',
@@ -115,9 +117,18 @@ export const PROJECTS: Project[] = [
 			en: 'A beginner practice guide for shuffle dance: five levels, 30 minutes a day, from basics to a short routine.',
 		},
 		url: 'https://sehyunnoh.github.io/shuffle-dance/',
-		group: 'learning',
+		group: 'dance',
 	},
 	{
+			name: 'Zumba at Home',
+			description: {
+				ko: '기본 스텝, 루틴, 메트로놈, 진도 기록으로 집에서 줌바 스타일 라틴 댄스를 배우는 사이트.',
+				en: 'A home companion for learning Zumba-style Latin dance: basic steps, routines, a metronome and progress tracking.',
+			},
+			url: 'https://sehyunnoh.github.io/zumba-at-home/',
+			group: 'dance',
+		},
+		{
 		name: 'Acorn',
 		description: {
 			ko: '지금은 볼 시간이 없는 페이지를 버튼 하나로 담아두고, 여유 있을 때 꺼내 보는 나중에 읽기 서비스.',
