@@ -129,6 +129,15 @@ export const PROJECTS: Project[] = [
 			group: 'dance',
 		},
 		{
+			name: 'Dance Challenge Hub',
+			description: {
+				ko: '댄스 챌린지를 함께 배우고 촬영해 보는 사이트.',
+				en: 'Dance challenges to learn and film together.',
+			},
+			url: 'https://sehyunnoh.github.io/dance-challenge/',
+			group: 'dance',
+		},
+		{
 		name: 'Acorn',
 		description: {
 			ko: '지금은 볼 시간이 없는 페이지를 버튼 하나로 담아두고, 여유 있을 때 꺼내 보는 나중에 읽기 서비스.',
