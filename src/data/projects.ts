@@ -138,6 +138,15 @@ export const PROJECTS: Project[] = [
 			group: 'dance',
 		},
 		{
+			name: 'House Dance Practice',
+			description: {
+				ko: '기초부터 플로어 워크까지 하우스 댄스를 단계별로 배우는 사이트.',
+				en: 'Learn house dance step by step, from foundations to floor work.',
+			},
+			url: 'https://sehyunnoh.github.io/house-dance/',
+			group: 'dance',
+		},
+		{
 		name: 'Acorn',
 		description: {
 			ko: '지금은 볼 시간이 없는 페이지를 버튼 하나로 담아두고, 여유 있을 때 꺼내 보는 나중에 읽기 서비스.',
