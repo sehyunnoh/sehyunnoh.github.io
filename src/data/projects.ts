@@ -111,7 +111,16 @@ export const PROJECTS: Project[] = [
 		group: 'study',
 	},
 	{
-		name: 'Shuffle Lab',
+		name: 'Backbeat',
+			description: {
+				ko: '메트로놈, 8단계 레슨, 용어 사전으로 제로에서 시작해 드럼을 배우는 연습 도우미.',
+				en: 'A practice companion for learning drums from zero: an eight-level course, a metronome and a glossary.',
+			},
+			url: 'https://sehyunnoh.github.io/backbeat/',
+			group: 'study',
+		},
+		{
+			name: 'Shuffle Lab',
 		description: {
 			ko: '하루 30분, 5단계 튜토리얼로 셔플 댄스 기초부터 짧은 루틴까지 익히는 연습 가이드.',
 			en: 'A beginner practice guide for shuffle dance: five levels, 30 minutes a day, from basics to a short routine.',
