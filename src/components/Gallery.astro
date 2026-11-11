@@ -1,9 +1,11 @@
 ---
 interface Props {
-	images: { src: string; alt: string }[];
+	images?: { src: string; alt: string }[];
+	videos?: { src: string; alt: string }[];
 }
 
-const { images } = Astro.props;
+const { images = [], videos = [] } = Astro.props;
+const count = images.length + videos.length;
 ---
 
 <div class="gallery" data-gallery>
@@ -15,23 +17,32 @@ const { images } = Astro.props;
 				</div>
 			))
 		}
+		{
+			videos.map((v) => (
+				<div class="gallery-slide" data-gallery-slide>
+					<video controls preload="metadata" aria-label={v.alt}>
+						<source src={v.src} type="video/mp4" />
+					</video>
+				</div>
+			))
+		}
 	</div>
 	{
-		images.length > 1 && (
+		count > 1 && (
 			<>
-				<button class="gallery-btn prev" type="button" data-gallery-prev aria-label="이전 사진">
+				<button class="gallery-btn prev" type="button" data-gallery-prev aria-label="이전">
 					‹
 				</button>
-				<button class="gallery-btn next" type="button" data-gallery-next aria-label="다음 사진">
+				<button class="gallery-btn next" type="button" data-gallery-next aria-label="다음">
 					›
 				</button>
 				<div class="gallery-dots" data-gallery-dots>
-					{images.map((_, i) => (
+					{Array.from({ length: count }, (_, i) => (
 						<button
 							class="gallery-dot"
 							type="button"
 							data-gallery-dot={i}
-							aria-label={`${i + 1}번째 사진으로 이동`}
+							aria-label={`${i + 1}번째로 이동`}
 						/>
 					))}
 				</div>
@@ -68,6 +79,12 @@ const { images } = Astro.props;
 		max-height: 70vh;
 		object-fit: contain;
 		display: block;
+	}
+	.gallery-slide video {
+		width: 100%;
+		max-height: 70vh;
+		display: block;
+		background: black;
 	}
 	.gallery-btn {
 		position: absolute;
@@ -128,6 +145,9 @@ const { images } = Astro.props;
 
 		function setActive(index: number) {
 			activeIndex = index;
+			slides.forEach((slide, i) => {
+				if (i !== index) slide.querySelectorAll('video').forEach((v) => v.pause());
+			});
 			dots.forEach((dot, i) => {
 				dot.dataset.active = String(i === index);
 			});
