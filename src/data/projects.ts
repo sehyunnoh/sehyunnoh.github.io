@@ -182,4 +182,13 @@ export const PROJECTS: Project[] = [
 		url: 'https://reminder-sandy-two.vercel.app/',
 		group: 'tools',
 	},
+	{
+		name: 'Today Board',
+		description: {
+			ko: '매일 해야 할 일을 챙기는 데일리 체크리스트.',
+			en: 'A daily checklist for keeping track of what to do each day.',
+		},
+		url: 'https://sehyunnoh.github.io/today-board/',
+		group: 'tools',
+	},
 ];
