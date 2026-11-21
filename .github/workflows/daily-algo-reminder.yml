@@ -1,0 +1,29 @@
+name: Daily Algo Reminder
+
+on:
+  schedule:
+    # 22:00 Toronto = 02:00 UTC (EDT) or 03:00 UTC (EST); the hour check below picks the right one
+    - cron: '0 2 * * *'
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Notify Discord if no post today
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          export TZ=America/Toronto
+          if [ "$(date +%H)" != "22" ] && [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ]; then
+            echo "Not 22:00 in Toronto yet, skipping."; exit 0
+          fi
+          today=$(date +%F)
+          if ls src/content/diary/dailyalgo/${today}-* >/dev/null 2>&1; then
+            echo "Post for $today exists."; exit 0
+          fi
+          curl -fsS -H "Content-Type: application/json" \
+            -d "{\"content\":\"⚠️ 오늘($today) 알고리즘 문제 풀이 포스트가 아직 안 올라왔어요! 더 분발합시다 💪 LeetCode 한 문제만 풀고 diary/dailyalgo에 올리세요.\"}" \
+            "$WEBHOOK"
