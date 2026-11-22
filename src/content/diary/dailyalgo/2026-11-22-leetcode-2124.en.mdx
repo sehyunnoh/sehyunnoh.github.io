@@ -1,0 +1,48 @@
+---
+title: 'LeetCode 2124. Check if All A''s Appears Before All B''s'
+description: 'My first hand-typed algorithm solution in a while, an Easy daily challenge'
+pubDate: '2026-11-22'
+tags: ['daily', 'algo', 'leetcode']
+---
+
+import Gallery from '../../../components/Gallery.astro';
+
+## Today in a Nutshell
+
+I solved an algorithm problem today for the first time in a while. When I opened LeetCode, the daily problem was Easy, so I decided to just go for it. I first wrote my thoughts down as comments, then filled in the code, and it was a success right on submission. It feels like it's been ages since I typed code by hand. These days AI does most of my development, so I rarely write code myself. I want to solve at least one problem every day if I can.
+
+## Problem
+
+[LeetCode 2124](https://leetcode.com/problems/check-if-all-as-appears-before-all-bs/): Given a string `s` consisting only of `a` and `b`, return `true` if **every `a` appears before every `b`**.
+
+## Approach
+
+- Every `a` comes before every `b` exactly when the **position of the last `a` < the position of the first `b`**.
+- If there is no `a` or no `b`, there is nothing to compare, so return `true`.
+- `rfind` and `find` each scan the string once, so the time complexity is O(n).
+
+## Submitted Code
+
+```python
+class Solution:
+    def checkString(self, s: str) -> bool:
+        last_a = s.rfind('a')
+        first_b = s.find('b')
+
+        # If there is no 'a' or no 'b' -> true
+        if last_a == -1 or first_b == -1:
+            return True
+
+        # if a[rightest] < b[leftest] -> true
+        return last_a < first_b
+```
+
+## Result
+
+<Gallery
+	images={[
+		{ src: '/media/diary/dailyalgo/20261122/leetcode-streak.png', alt: 'LeetCode Daily Coding Challenge Completed, 1 day streak' },
+	]}
+/>
+
+Streak: 1 day. Let's keep it going tomorrow.
